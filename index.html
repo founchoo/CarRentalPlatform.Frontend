@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汽车租赁管理平台</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      const keyCodeMap = {
+        // 91: true, // command
+        61: true,
+        107: true, // 数字键盘 +
+        109: true, // 数字键盘 -
+        173: true, // 火狐 - 号
+        187: true, // +
+        189: true, // -
+      };
+      // 覆盖ctrl||command + ‘+’/‘-’
+      document.onkeydown = function (event) {
+        const e = event || window.event;
+        const ctrlKey = e.ctrlKey || e.metaKey;
+        if (ctrlKey && keyCodeMap[e.keyCode]) {
+          e.preventDefault();
+        } else if (e.detail) { // Firefox
+          event.returnValue = false;
+        }
+      };
+      // 覆盖鼠标滑动
+      document.body.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) {
+          if (e.deltaY < 0) {
+            e.preventDefault();
+            return false;
+          }
+          if (e.deltaY > 0) {
+            e.preventDefault();
+            return false;
+          }
+        }
+      }, { passive: false });
+
+    </script>
+  </body>
+
+</html>
