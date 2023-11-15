@@ -22,8 +22,10 @@ export default defineComponent({
           label: '客户 ID',
           type: 'uuid',
           isValid: false,
+          // @ts-ignore
           validator: async (value) => {
             await http.get(`/${ROUTE_CUSTOMER_INFO}/getById?id=${value}`).then(response => {
+              // @ts-ignore
               const first = common.columns.value.find((obj) => {
                 return obj.field === 'cid'
               })
@@ -36,29 +38,37 @@ export default defineComponent({
           label: '车辆 ID',
           type: 'uuid',
           isValid: false,
+          // @ts-ignore
           validator: async (value) => {
             await new DataService(`${ROUTE_VEHICLE_INFO}`).getByIdAsync(value).then(response => {
               let vehicleInfo = response.data.data.data
               // 获取 车辆ID 属性
+              // @ts-ignore
               const vehicleId = common.columns.value.find((obj) => {
                 return obj.field === 'vid'
               })
+              // @ts-ignore
               const rentDate = common.columns.value.find((obj) => {
                 return obj.field === 'rent_date'
               })
+              // @ts-ignore
               const returnDate = common.columns.value.find((obj) => {
                 return obj.field === 'return_date'
               })
               vehicleId.isValid = response.data.isSuccess
               if (vehicleId.isValid) {
                 common.setDataValue('total_distance', vehicleInfo.total_distance)
+                // @ts-ignore
                 common.data.value['rent_fee_per_day'] = vehicleInfo.rental_fee
               } else {
                 common.setDataValue('total_distance', '')
+                // @ts-ignore
                 common.data.value['rent_fee_per_day'] = ''
               }
               if (vehicleId.isValid && rentDate.isValid && returnDate.isValid) {
+                // @ts-ignore
                 common.setDataValue('total_rental_fee', common.data.value['rent_fee_per_day'] *
+                // @ts-ignore
                   moment(common.data.value['return_date']).diff(moment(common.data.value['rent_date']), 'days'))
               } else {
                 common.setDataValue('total_rental_fee', '')
@@ -69,6 +79,7 @@ export default defineComponent({
         {
           field: "rent_address",
           label: "借出地址",
+          // @ts-ignore
           validator: (value) => {
             notEmpty('rent_address', value)
           },
@@ -77,6 +88,7 @@ export default defineComponent({
         {
           field: "return_address",
           label: "还车地址",
+          // @ts-ignore
           validator: (value) => {
             notEmpty('return_address', value)
           },
@@ -86,20 +98,25 @@ export default defineComponent({
           field: 'rent_date',
           label: '借出时间',
           type: 'date',
-          isValid: false,
+          isValid: false,// @ts-ignore
           validator: (value) => {
+            // @ts-ignore
             const vehicleId = common.columns.value.find((obj) => {
               return obj.field === 'vid'
             })
+            // @ts-ignore
             const rentDate = common.columns.value.find((obj) => {
               return obj.field === 'rent_date'
             })
+            // @ts-ignore
             const returnDate = common.columns.value.find((obj) => {
               return obj.field === 'return_date'
             })
             rentDate.isValid = moment(value, 'yyyy-MM-DD', true).isValid()
             if (vehicleId.isValid && rentDate.isValid && returnDate.isValid) {
+              // @ts-ignore
               common.setDataValue('total_rental_fee', common.data.value['rent_fee_per_day'] *
+              // @ts-ignore
                 moment(common.data.value['return_date']).diff(moment(common.data.value['rent_date']), 'days'))
             } else {
               common.setDataValue('total_rental_fee', '')
@@ -110,20 +127,25 @@ export default defineComponent({
           field: 'return_date',
           label: '归还时间',
           type: 'date',
-          isValid: false,
+          isValid: false,// @ts-ignore
           validator: (value) => {
+            // @ts-ignore
             const vehicleId = common.columns.value.find((obj) => {
               return obj.field === 'vid'
             })
+            // @ts-ignore
             const rentDate = common.columns.value.find((obj) => {
               return obj.field === 'rent_date'
             })
+            // @ts-ignore
             const returnDate = common.columns.value.find((obj) => {
               return obj.field === 'return_date'
             })
             returnDate.isValid = moment(value, 'yyyy-MM-DD', true).isValid()
             if (vehicleId.isValid && rentDate.isValid && returnDate.isValid) {
+              // @ts-ignore
               common.setDataValue('total_rental_fee', common.data.value['rent_fee_per_day'] *
+              // @ts-ignore
                 moment(common.data.value['return_date']).diff(moment(common.data.value['rent_date']), 'days'))
             } else {
               common.setDataValue('total_rental_fee', '')
@@ -136,7 +158,9 @@ export default defineComponent({
           label: '租金',
           type: 'number',
           isValid: false,
+          // @ts-ignore
           validator: (value) => {
+            // @ts-ignore
             const first = common.columns.value.find((obj) => {
               return obj.field === 'total_rental_fee'
             })
@@ -148,7 +172,7 @@ export default defineComponent({
           field: "run_distance",
           label: "本次使用里程",
           type: "number",
-          showOnSummary: false,
+          showOnSummary: false,// @ts-ignore
           validator: (value) => {
             const col = common.getColumn('run_distance')
             col.isValid = parseInt(value) > 0
@@ -159,7 +183,7 @@ export default defineComponent({
           field: "total_distance",
           label: "总里程（租前）",
           type: "number",
-          showOnSummary: false,
+          showOnSummary: false,// @ts-ignore
           validator: (value) => {
           },
           isValid: false,
@@ -169,7 +193,7 @@ export default defineComponent({
           field: "deposit_fee",
           label: "押金",
           type: "number",
-          showOnSummary: false,
+          showOnSummary: false,// @ts-ignore
           validator: (value) => {
             const col = common.getColumn('deposit_fee')
             col.isValid = parseInt(value) > 0
@@ -179,7 +203,7 @@ export default defineComponent({
         {
           field: "manager",
           label: "经手人",
-          showOnSummary: false,
+          showOnSummary: false,// @ts-ignore
           validator: (value) => {
             notEmpty('manager', value)
           },
@@ -187,7 +211,7 @@ export default defineComponent({
         },
         {
           field: "deposit_status",
-          label: "押金情况",
+          label: "押金情况",// @ts-ignore
           validator: (value) => {
           },
           isValid: false
@@ -197,7 +221,7 @@ export default defineComponent({
           label: "是否违章",
           type: "boolean",
           showOnSummary: false,
-          converter: trueFalseConverter,
+          converter: trueFalseConverter,// @ts-ignore
           validator: (value) => { },
           isValid: true,
           autoGenerated: true
@@ -207,7 +231,7 @@ export default defineComponent({
           label: "是否事故",
           type: "boolean",
           showOnSummary: false,
-          converter: trueFalseConverter,
+          converter: trueFalseConverter,// @ts-ignore
           validator: (value) => { },
           isValid: true,
           autoGenerated: true
@@ -216,7 +240,7 @@ export default defineComponent({
       baseURL: `${ROUTE_ORDER}`
     };
   },
-  created() {
+  created() {// @ts-ignore
     common.beforeAdd.value = async () => {
       // 增加值时初始化是否违章、是否事故为 false
       common.setDataValue('break_rule', false)
@@ -228,9 +252,12 @@ export default defineComponent({
       messenger.cid.value = ''
       messenger.vid.value = ''
     }
+    // @ts-ignore
     common.afterAdd.value = async () => {
+      // @ts-ignore
       await new DataService(`${ROUTE_VEHICLE_INFO}`).getByIdAsync(common.data.value['vid']).then(async response => {
         const vehicleInfo = response.data.data.data
+        // @ts-ignore
         vehicleInfo.total_distance += parseInt(common.data.value['run_distance'])
         await new DataService(`${ROUTE_VEHICLE_INFO}`).updateAsync(vehicleInfo)
       })

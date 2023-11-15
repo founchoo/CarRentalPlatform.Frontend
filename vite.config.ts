@@ -7,7 +7,9 @@ export default defineConfig({
   css: {
     devSourcemap: true,
   },
-  plugins: [vue()],
+  plugins: [
+    vue()
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')

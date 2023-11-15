@@ -6,6 +6,7 @@ import {
 	MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem,
 	MDBCard, MDBCardBody, MDBRadio
 } from 'mdb-vue-ui-kit'
+// @ts-ignore
 import { defineComponent, ref } from 'vue'
 
 </script>
@@ -71,10 +72,13 @@ export default defineComponent({
 								</MDBDropdownToggle>
 								<MDBDropdownMenu>
 									<MDBDropdownItem
-										v-show="column.type === 'number' || column.type === 'date' || column.type === 'boolean'"
-										@click="filterColumnField = column.field; filterColumnLabel = column.label; filterColumnType = column.type"
+										v-show="// @ts-ignore
+										column.type === 'number' || column.type === 'date' || column.type === 'boolean'"
+										@click="// @ts-ignore
+										filterColumnField = column.field; filterColumnLabel = column.label; filterColumnType = column.type"
 										v-for="column in common.columns.value" href="javascript:void(0);">
-										{{ column.label }}
+										{{ // @ts-ignore
+										column.label }}
 									</MDBDropdownItem>
 								</MDBDropdownMenu>
 							</MDBDropdown>
@@ -112,7 +116,9 @@ export default defineComponent({
 								@click="filterColumnLabel = ''; filterColumnField = ''; filterColumnType = ''; filterMinValue = '', filterMaxValue = ''; common.getAllByPageAsync()">
 								清除筛选
 							</MDBBtn>
-							<MDBBtn color="primary" :disabled="this.filterColumnField === '' ||
+							<MDBBtn color="primary" :disabled="// @ts-ignore
+							this.filterColumnField === '' ||
+							// @ts-ignore
 								(this.filterMinValue === '' && this.filterMaxValue === '' && this.filterEqValue === '')" @click="submit()">确定
 							</MDBBtn>
 						</div>

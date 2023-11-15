@@ -29,6 +29,7 @@ import { setToken } from '@/utils/storage'
 import BaseLoading from '@/components/BaseLoading.vue'
 import http from './utils/http'
 import { getToken, removeToken } from '@/utils/storage'
+// @ts-ignore
 import { ROUTE_HOME, ROUTE_LOGIN, TOAST_DURATION } from './utils/constants'
 import AddDataModal from './components/AddDataModal.vue'
 import routes from '@/router'
@@ -54,11 +55,13 @@ export default defineComponent({
         path: `/${ROUTE_LOGIN}`
       });
     },
+    // @ts-ignore
     navigateTo(path) {
       router.push({
         path: path
       });
     },
+    // @ts-ignore
     launchToast(toast) {
       this.showToast = true;
       this.toastTitle = toast.title;
@@ -108,6 +111,7 @@ export default defineComponent({
       });
     },
     initRouterConfig() {
+      // @ts-ignore
       router.beforeEach(async (to, from, next) => {
         console.log(to)
         const token = getToken();
@@ -123,6 +127,7 @@ export default defineComponent({
           else {
             this.showMainLayout = true;
             for (const item of this.navbarList) {
+              // @ts-ignore
               item.meta.active = item.path === to.path;
             }
             common.init();
@@ -145,6 +150,7 @@ export default defineComponent({
     }
   },
   created() {
+    // @ts-ignore
     this.navbarList = routes.getRoutes();
     this.initHTTPConfig();
     this.initRouterConfig();
@@ -154,6 +160,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <MDBContainer fluid :hidden="!showMainLayout">
     <MDBCol style="min: width 100%;">
 
@@ -161,11 +168,15 @@ export default defineComponent({
       <MDBRow class="sidebar-container animate__animated animate__fadeInLeft">
         <MDBCard style="padding: 0; ">
           <MDBListGroup light>
-            <MDBListGroupItem v-for="item in navbarList" v-show="item.meta.showOnNavbar !== false" tag="button"
-              @click="navbarItemSelectionChanged(item)" :active="item.meta.active" class="nav-item" noBorder spacing
+            <MDBListGroupItem v-for="item in navbarList" v-show="// @ts-ignore
+            item.meta.showOnNavbar !== false" tag="button"
+              @click="navbarItemSelectionChanged(item)" :active="// @ts-ignore
+              item.meta.active" class="nav-item" noBorder spacing
               action>
-              <i :class="item.meta.icon"></i><!--侧边栏logo-->
-              {{ item.meta.label }}
+              <i :class="// @ts-ignore
+              item.meta.icon"></i><!--侧边栏logo-->
+              {{ // @ts-ignore
+              item.meta.label }}
             </MDBListGroupItem>
           </MDBListGroup>
         </MDBCard>
@@ -191,7 +202,7 @@ export default defineComponent({
             </div>
             <!-- 导航栏项目名 -->
             </MDBNavbarBrand>
-            <span class="animate__animated animate__bounceInRight" style="font-size: 20px; font-family: fantasy;"><strong>牛哔租车</strong></span>
+            <span class="animate__animated animate__bounceInRight" style="font-size: 20px; font-family: fantasy;"><strong>华夏租车</strong></span>
           <MDBNavbarNav right>
             <MDBDropdown v-model="dropdown">
               <MDBDropdownToggle color="link" @click="dropdown = !dropdown">

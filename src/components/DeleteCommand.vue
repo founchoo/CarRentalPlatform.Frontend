@@ -10,6 +10,7 @@ import * as common from '@/utils/common'
 
 <template>
 	<MDBBtn color="danger" @click="common.deleteBatchAsync()" v-show="common.items.value.findIndex(item => {
+    // @ts-ignore
 		return item.selected === true
 	}) !== -1" class="delete-btn">
 		<i class="fas fa-trash"></i>

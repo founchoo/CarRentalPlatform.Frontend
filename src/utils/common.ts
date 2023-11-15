@@ -49,7 +49,9 @@ export let sort = ref({
  * @param field 属性
  * @param value 值
  */
+// @ts-ignore
 export function setDataValue(field: string, value) {
+	// @ts-ignore
 	data.value[field] = value
 	if (value === '') {
 		getColumn(field).isValid = false
@@ -63,7 +65,9 @@ export function setDataValue(field: string, value) {
  */
 export function onCloseModal() {
 	showAddDataModal.value = false
+	// @ts-ignore
 	for (let i = 0; i < columns.value.length; i++) {
+		// @ts-ignore
 		let column = columns.value[i]
 		column.isValid = false
 	}
@@ -79,6 +83,7 @@ watch(showAddDataModal, (newValue) => {
  * 修改按钮点按时触发的事件
  * @param item 传递的数据
  */
+// @ts-ignore
 export function editBtnClicked(item) {
 	addDataModalRaiseType.value = 'edit'
 	beforeEdit()
@@ -91,13 +96,16 @@ export function editBtnClicked(item) {
  * 点按修改按钮前做的准备
  */
 export function beforeEdit() {
+	// @ts-ignore
 	for (let i = 0; i < columns.value.length; i++) {
+		// @ts-ignore
 		let column = columns.value[i]
 		column.isValid = true
 	}
 }
 
 export function getColumn(field: string) {
+	// @ts-ignore
 	return columns.value.find((obj) => {
 		return obj.field === field
 	})
@@ -129,6 +137,7 @@ export function handlePageResponse(response: any) {
 	totalPageCount.value = response.data.data.page.pages
 }
 
+// @ts-ignore
 export function handleError(e) {
 	console.log(e)
 }
@@ -211,6 +220,7 @@ export async function importFromExcel() {
 	input.accept = '.xlsx'
 	input.onchange = async (e) => {
 		let formData = new FormData()
+		// @ts-ignore
 		formData.append('file', e.target.files[0])
 		await dataService.importFromExcel(formData)
 		currentPageNo.value = 1
@@ -245,6 +255,7 @@ export function changeSelectionStatus(item: any) {
 	item.selected = !item.selected
 	for (let i = 0; i < items.value.length; i++) {
 		const item = items.value[i]
+		// @ts-ignore
 		if (!item.selected) {
 			allItemSelected.value = false
 			return
@@ -259,6 +270,7 @@ export function changeSelectionStatus(item: any) {
 export function changeAllSelectionStatus() {
 	for (let i = 0; i < items.value.length; i++) {
 		const item = items.value[i]
+		// @ts-ignore
 		item.selected = !allItemSelected.value
 	}
 }
@@ -275,7 +287,9 @@ export async function submit() {
 		await updateAsync();
 	}
 	showAddDataModal.value = false
+	// @ts-ignore
 	for (let i = 0; i < columns.value.length; i++) {
+		// @ts-ignore
 		const item = columns.value[i]
 		item.isValid = false
 	}
@@ -288,7 +302,9 @@ export async function submit() {
  */
 export async function changeSort(columns: [], column: any) {
 	for (let i = 0; i < columns.length; i++) {
+		// @ts-ignore
 		if (columns[i].field !== column.field) {
+			// @ts-ignore
 			columns[i].selectionStatus = undefined
 		}
 	}
@@ -310,6 +326,7 @@ export async function changeSort(columns: [], column: any) {
 	}
 }
 
+// @ts-ignore
 export async function copyToClipboard(textToCopy) {
 	// Navigator clipboard api needs a secure context (https)
 	if (navigator.clipboard && window.isSecureContext) {

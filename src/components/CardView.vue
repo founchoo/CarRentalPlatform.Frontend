@@ -57,6 +57,7 @@ export default defineComponent({
 		common.getAllByPageAsync()
 	},
 	methods: {
+		// @ts-ignore
 		copyID(item, field, label) {
       console.log(item, field, label)
       if (label === '客户 ID') {
@@ -80,30 +81,40 @@ export default defineComponent({
 
 		<!-- 卡片组数据 -->
 		<MDBRow class="ms-0" style="margin-top: 8vh;">
-			<MDBCol class="p-0" md="4" v-for="item in common.items.value" :key="item.id">
+			<MDBCol class="p-0" md="4" v-for="item in common.items.value" :key="// @ts-ignore
+			item.id">
 				<MDBCard style="margin-right: 10px; margin-bottom: 15px;" class="p-0">
 					<div class="rounded-5"
-						:style="'width: auto; height: 200px; background-image: url(' + item.img + '); background-repeat: no-repeat; background-size: cover; background-position: center;'">
+						:style="// @ts-ignore
+						'width: auto; height: 200px; background-image: url(' + item.img + '); background-repeat: no-repeat; background-size: cover; background-position: center;'">
 					</div>
-					<MDBCheckbox v-model="item.selected" class="position-absolute" style="top: 1vh; right: 1vh;" />
+					<MDBCheckbox v-model="// @ts-ignore
+					item.selected" class="position-absolute" style="top: 1vh; right: 1vh;" />
 					<MDBCardBody>
 						<MDBListGroup light small>
 							<MDBListGroupItem noBorder v-for="column in columns"
-								v-show="column.showOnSummary === undefined || column.showOnSummary === true">
+								v-show="// @ts-ignore
+								column.showOnSummary === undefined || column.showOnSummary === true">
 								<strong>
-									{{ column.label }}:
+									{{ // @ts-ignore
+									column.label }}:
 								</strong>
 								<span>
-									<span v-if="column.converter !== undefined">
-										{{ column.converter(item[column.field]) }}
+									<span v-if="// @ts-ignore
+									column.converter !== undefined">
+										{{ // @ts-ignore
+										column.converter(item[column.field]) }}
 									</span>
-									<span v-else-if="column.type === 'uuid'">
-										<MDBBtn color="link" @click="copyID(item, column.field, column.label)">
+									<span v-else-if="// @ts-ignore
+									column.type === 'uuid'">
+										<MDBBtn color="link" @click="// @ts-ignore
+										copyID(item, column.field, column.label)">
 											<i class="fas fa-copy"></i>
 										</MDBBtn>
 									</span>
 									<span v-else>
-										{{ item[column.field] }}
+										{{ // @ts-ignore
+										item[column.field] }}
 									</span>
 								</span>
 							</MDBListGroupItem>
@@ -155,8 +166,10 @@ export default defineComponent({
 	<MDBCard v-show="showDetail" class="mb-3 animate__animated animate__fadeIn p-0	" style="max-width: 100%">
 		<MDBRow class="g-0">
 			<MDBCol md="4">
-				<div v-show="common.data.value.img !== undefined" class="rounded-5"
-					:style="'width: 100%; height: 100%; background-image: url(' + common.data.value.img + '); background-repeat: no-repeat; background-size: cover; background-position: center;'">
+				<div v-show="// @ts-ignore
+				common.data.value.img !== undefined" class="rounded-5"
+					:style="// @ts-ignore
+					'width: 100%; height: 100%; background-image: url(' + common.data.value.img + '); background-repeat: no-repeat; background-size: cover; background-position: center;'">
 				</div>
 			</MDBCol>
 			<MDBCol md="8">
@@ -168,19 +181,25 @@ export default defineComponent({
 				<MDBListGroup flush>
 					<MDBListGroupItem noBorder v-for="column in columns">
 						<strong>
-							{{ column.label }}:
+							{{ // @ts-ignore
+							column.label }}:
 						</strong>
 						<span>
-							<span v-if="column.converter !== undefined">
-								{{ column.converter(common.data.value[column.field]) }}
+							<span v-if="// @ts-ignore
+							column.converter !== undefined">
+								{{ // @ts-ignore
+								column.converter(common.data.value[column.field]) }}
 							</span>
-							<span v-else-if="column.type === 'uuid'">
-								<MDBBtn color="link" @click="copyID(common.data.value, column.field, column.label)">
+							<span v-else-if="// @ts-ignore
+							column.type === 'uuid'">
+								<MDBBtn color="link" @click="// @ts-ignore
+								copyID(common.data.value, column.field, column.label)">
 									<i class="fas fa-copy"></i>
 								</MDBBtn>
 							</span>
 							<span v-else>
-								{{ common.data.value[column.field] }}
+								{{ // @ts-ignore
+								common.data.value[column.field] }}
 							</span>
 						</span>
 					</MDBListGroupItem>

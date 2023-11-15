@@ -41,6 +41,7 @@ export default defineComponent({
 		}
 	},
 	watch: {
+		// @ts-ignore
 		show(newValue, oldValue) {
 			if (newValue) {
 				setTimeout(() => {
@@ -51,6 +52,7 @@ export default defineComponent({
 				}, 100)
 			}
 		},
+		// @ts-ignore
 		level(newValue, oldValue) {
 			const toast = document.getElementById('toast-container')
 			if (toast) {

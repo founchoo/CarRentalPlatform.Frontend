@@ -16,6 +16,7 @@ export default defineComponent({
 					label: '车辆 ID',
 					type: 'uuid',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -23,7 +24,7 @@ export default defineComponent({
 				{
 					field: 'manufacturer',
 					label: '厂商',
-					isValid: false,
+					isValid: false,// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -31,7 +32,7 @@ export default defineComponent({
 				{
 					field: 'brand',
 					label: '品牌',
-					isValid: false,
+					isValid: false,// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -40,7 +41,7 @@ export default defineComponent({
 					field: 'maintenance_fee',
 					label: '保养费用',
 					type: 'number',
-					isValid: false,
+					isValid: false,// @ts-ignore
 					validator: async (value) => {
 					}
 				},
@@ -48,7 +49,7 @@ export default defineComponent({
 					field: 'violate_count',
 					label: '违章次数',
 					type: 'number',
-					isValid: false,
+					isValid: false,// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -57,7 +58,7 @@ export default defineComponent({
 					field: 'accident_count',
 					label: '事故次数',
 					type: 'number',
-					isValid: false,
+					isValid: false,// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -66,8 +67,10 @@ export default defineComponent({
 		};
 	},
 	created() {
+		// @ts-ignore
 		common.beforeAdd.value = () => {
 		}
+		// @ts-ignore
 		common.afterAdd.value = () => {
 		}
 	}

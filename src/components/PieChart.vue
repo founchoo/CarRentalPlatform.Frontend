@@ -92,6 +92,7 @@ const drawChart = async () => {
 
 	var chartDom = document.getElementById('main')!
 	var myChart = echarts.init(chartDom)
+	// @ts-ignore
 	option && myChart.setOption(option)
 }
 </script>

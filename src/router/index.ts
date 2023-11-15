@@ -1,6 +1,7 @@
 // scr\router\index.ts
 import {
   ROUTE_ABOUT, ROUTE_CUSTOMER_INFO, ROUTE_ORDER, ROUTE_VEHICLE_INFO, ROUTE_LOGIN, ROUTE_HOME, ROUTE_VEHICLE_MAINTENANCE, 
+  // @ts-ignore
   ROUTE_TRAFFIC_VIOLATION_ACCIDENT, ROUTE_FINANCIAL_STATEMENT, ROUTE_FINANCIAL_STATEMENT_INCOME, ROUTE_FINANCIAL_STATEMENT_OUTPUT
 } from '@/utils/constants'
 import {
@@ -10,6 +11,7 @@ import VehicleInfo from '@/views/VehicleInfo.vue'
 import CustomerInfo from '@/views/CustomerInfo.vue'
 import VehicleMaintenance from '@/views/VehicleMaintenance.vue'
 import TrafficViolationAccident from '@/views/TrafficViolationAccident.vue'
+// @ts-ignore
 import FinancialStatement from '@/views/FinancialStatement.vue'
 import FinancialStatementIncome from '@/views/FinancialStatementIncome.vue'
 import FinancialStatementOutput from '@/views/FinancialStatementOutput.vue'

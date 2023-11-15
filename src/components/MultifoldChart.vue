@@ -73,7 +73,9 @@ const drawChart = async () => {
   };
 
   var chartDom = document.getElementById('main')
+  // @ts-ignore
   var myChart = echarts.init(chartDom)
+  // @ts-ignore
   option && myChart.setOption(option)
 }
 

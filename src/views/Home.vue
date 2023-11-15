@@ -10,11 +10,11 @@
 	<PieChart v-else-if="type === 'accident'" :func="getTrafficViolateAsPieChart" title="事故简报" />
 	<div v-else-if="type === 'financial'">
 		<div class="d-flex flex-row justify-content-end align-items-center">
-			<MDBBtn color="link">
+			<MDBBtn color="link" @click="lastYear">
 				<MDBIcon icon="angle-left"></MDBIcon>
 			</MDBBtn>
-			<span class="text-primary">2022 年</span>
-			<MDBBtn color="link">
+			<span class="text-primary">{{ currentYear }} 年</span>
+			<MDBBtn color="link" @click="nextYear">
 				<MDBIcon icon="angle-right"></MDBIcon>
 			</MDBBtn>
 		</div>
@@ -32,6 +32,8 @@ import { MDBBtn, MDBBtnGroup, MDBIcon } from 'mdb-vue-ui-kit'
 import { ref } from 'vue';
 
 let type = ref('energy')
+
+let currentYear = ref(2022)
 
 /**
  * 能源类型饼状图显示
@@ -63,18 +65,25 @@ let getTrafficViolateAsPieChart = async () => {
 	let noMistakenCount = 0
 	let accidentCount = 0
 	let violateCount = 0
-	await new DataService(`${ROUTE_TRAFFIC_VIOLATION_ACCIDENT}`).getAllAsync().then(response => {
-		const list = response.data.data.list
-		for (let i = 0; i < list.length; i++) {
-			let item = list[i]
-			if (item.accident_count == 0 && item.violate == 0) {
-				noMistakenCount++
-			} else {
-				accidentCount += item.accident_count
-				violateCount += item.violate_count
+	await new DataService(`${ROUTE_ORDER}`).getAllAsync().then(async response => {
+		const orderList = response.data.data.list
+		await new DataService(`${ROUTE_TRAFFIC_VIOLATION_ACCIDENT}`).getAllAsync().then(response => {
+			const violateList = response.data.data.list
+			for (let j = 0; j < orderList.length; j++) {
+				const order = orderList[j]
+				console.log(order)
+				if (order.accident === false && order.break_rule === false) {
+					noMistakenCount++
+				}
 			}
-		}
+			for (let i = 0; i < violateList.length; i++) {
+				let violate = violateList[i]
+				accidentCount += violate.accident_count
+				violateCount += violate.violate_count
+			}
+		})
 	})
+
 	return [
 		{ value: noMistakenCount, name: '无过失' },
 		{ value: accidentCount, name: '事故' },
@@ -107,27 +116,35 @@ let getFinancialStatementAsLineChart = async () => {
 	// 获取所有订单
 	await new DataService(`${ROUTE_ORDER}`).getAllAsync().then(async response => {
 		let orderList = response.data.data.list
-		// 按订单遍历
-		for (let j = 0; j < orderList.length; j++) {
-			const order = orderList[j]
-			const vehicleId = order.vid
-			await new DataService(`${ROUTE_VEHICLE_INFO}`).getByIdAsync(vehicleId).then(async response => {
-				const vehicleInfo = response.data.data.data
-				// 遍历折线
-				lines.forEach((line) => {
-					if (line.name === vehicleInfo.brand) {
-						// 获取订单起租时间所在月份
-						let month = new Date(order.rent_date).getMonth()
-						console.log(order.rent_date)
-						console.log(month + 1)
-						console.log("--------------------------------")
-						line.data[month] += order.total_rental_fee
+		await new DataService(`${ROUTE_VEHICLE_INFO}`).getAllAsync().then(async response => {
+			let vehicleInfoList = response.data.data.list
+			// 按订单遍历
+			for (let j = 0; j < orderList.length; j++) {
+				const order = orderList[j]
+				const vehicleId = order.vid
+				for (let k = 0; k < vehicleInfoList.length; k++) {
+					if (vehicleInfoList[k].id === vehicleId) {
+						const vehicleInfo = vehicleInfoList[k]
+						// 遍历折线
+						lines.forEach((line) => {
+							if (line.name === vehicleInfo.brand) {
+								// 获取订单起租时间所在月份
+								let month = new Date(order.rent_date).getMonth()
+								console.log(order.rent_date)
+								console.log(month + 1)
+								let year = new Date(order.rent_date).getFullYear()
+								console.log(year)
+								console.log("--------------------------------")
+								if (year === currentYear.value) {
+									line.data[month] += order.total_rental_fee
+								}
+							}
+						})
 					}
-				})
-			})
-		}
+				}
+			}
+		})
 	})
-
 	return lines
 }
 
@@ -151,6 +168,18 @@ let getLegendData = async () => {
 		}
 	})
 	return legendData
+}
+
+function lastYear() {
+	currentYear.value--
+	type.value = ''
+	setTimeout(() => { type.value = 'financial' }, 100)
+}
+
+function nextYear() {
+	currentYear.value++
+	type.value = ''
+	setTimeout(() => { type.value = 'financial' }, 100)
 }
 
 </script>

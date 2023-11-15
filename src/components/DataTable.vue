@@ -39,6 +39,7 @@ export default defineComponent({
     },
     setRowClass: {
       type: Function,
+      // @ts-ignore
       default: (item: {}) => {
         return ''
       }
@@ -68,6 +69,7 @@ export default defineComponent({
     }
   },
   methods: {
+    // @ts-ignore
 		copyID(item, field, label) {
       console.log(item, field, label)
       if (label === '客户 ID') {
@@ -102,39 +104,59 @@ export default defineComponent({
           <th v-show="allowDelete">
             <MDBCheckbox v-model="common.allItemSelected.value" @click="common.changeAllSelectionStatus()" />
           </th>
-          <th v-for="column in columns" v-show="column.showOnSummary === true || column.showOnSummary === undefined"
-            :key="column.field">
-            <i class="fas fa-arrow-up sort" v-show="column.selectionStatus === undefined"
-              @click="common.changeSort(columns, column)"></i>
-            <i class="fas fa-arrow-up sort-asc" v-show="column.selectionStatus === 'asc'"
-              @click="common.changeSort(columns, column)"></i>
-            <i class="fas fa-arrow-up sort-desc" v-show="column.selectionStatus === 'desc'"
-              @click="common.changeSort(columns, column)"></i>
-            {{ column.label }}
+          <th v-for="column in columns" v-show="// @ts-ignore
+          column.showOnSummary === true || column.showOnSummary === undefined"
+            :key="// @ts-ignore
+            column.field">
+            <i class="fas fa-arrow-up sort" v-show="// @ts-ignore
+            column.selectionStatus === undefined"
+              @click="// @ts-ignore
+              common.changeSort(columns, column)"></i>
+            <i class="fas fa-arrow-up sort-asc" v-show="// @ts-ignore
+            column.selectionStatus === 'asc'"
+              @click="// @ts-ignore
+              common.changeSort(columns, column)"></i>
+            <i class="fas fa-arrow-up sort-desc" v-show="// @ts-ignore
+            column.selectionStatus === 'desc'"
+              @click="// @ts-ignore
+              common.changeSort(columns, column)"></i>
+            {{ // @ts-ignore
+            column.label }}
           </th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in common.items.value" :class="setRowClass(item)" :key="item.id">
+        <tr v-for="item in common.items.value" :class="setRowClass(item)" :key="// @ts-ignore
+        item.id">
           <td v-show="allowDelete">
-            <MDBCheckbox v-model="item.selected" @change="common.changeSelectionStatus(item)" />
+            <MDBCheckbox v-model="// @ts-ignore
+            item.selected" @change="common.changeSelectionStatus(item)" />
           </td>
-          <td v-for="column in columns" v-show="column.showOnSummary === true || column.showOnSummary === undefined"
-            :key="column.field">
-            <span v-if="column.field === 'gender'">
-              {{ column.converter(item[column.field]) === '是' ? '男' : '女' }}
+          <td v-for="column in columns" v-show="// @ts-ignore
+          column.showOnSummary === true || column.showOnSummary === undefined"
+            :key="// @ts-ignore
+            column.field">
+            <span v-if="// @ts-ignore
+            column.field === 'gender'">
+              {{ // @ts-ignore
+              column.converter(item[column.field]) === '是' ? '男' : '女' }}
             </span>
-            <span v-else-if="column.converter !== undefined">
-              {{ column.converter(item[column.field]) }}
+            <span v-else-if="// @ts-ignore
+            column.converter !== undefined">
+              {{ // @ts-ignore
+              column.converter(item[column.field]) }}
             </span>
-            <span v-else-if="column.type === 'uuid'">
-              <MDBBtn color="link" @click="copyID(item, column.field, column.label)">
+            <span v-else-if="// @ts-ignore
+            column.type === 'uuid'">
+              <MDBBtn color="link" @click="// @ts-ignore
+              copyID(item, column.field, column.label)">
                 <i class="fas fa-copy"></i>
               </MDBBtn>
             </span>
             <span v-else>
-              {{ item[column.field] }}
+              {{ // @ts-ignore
+              item[column.field] }}
             </span>
           </td>
           <td>

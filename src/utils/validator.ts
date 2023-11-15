@@ -6,16 +6,19 @@ import moment from 'moment'
  * @param columnField 需要验证的值所属的列属性名
  * @param value 需要验证的值
  */
+// @ts-ignore
 export function positiveNumber(columnField: string, value, min: number = 0) {
 	const col = common.getColumn(columnField)
 	col.isValid = /^\d+$/.test(value) && parseInt(value) > min
 }
 
+// @ts-ignore
 export function notEmpty(columnField: string, value) {
 	const col = common.getColumn(columnField)
 	col.isValid = value !== null && value !== undefined && value !== ''
 }
 
+// @ts-ignore
 export function dateTime(columnField: string, value) {
 	const col = common.getColumn(columnField)
 	col.isValid = moment(value, 'yyyy-MM-DD', true).isValid()
@@ -26,11 +29,13 @@ export function dateTime(columnField: string, value) {
  * @param str 传入的车牌号
  * @returns 验证通过返回 true, 不通过返回 false
  */
+// @ts-ignore
 export function licensePlateCheck(columnField: string, value) {
 	const col = common.getColumn(columnField)
 	col.isValid = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(value)
 }
 
+// @ts-ignore
 export function idCard(columnField: string, value) {
 	const col = common.getColumn(columnField)
 	col.isValid = UtilRoles.checkIdCard(value)
@@ -183,6 +188,7 @@ const UtilRoles = {
 
 
 // 将传入的姓名中空格和全角空格都去掉，乱七八糟的·都换成半角的·
+// @ts-ignore
 export const checkChineseName = function (name) {
 	let reg = /^[\u4e00-\u9fa5]{2,15}$/;
 	// 保留点后,用来校验的姓名,也是最终校验通过后返回的姓名

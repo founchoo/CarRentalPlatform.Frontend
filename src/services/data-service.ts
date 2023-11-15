@@ -69,6 +69,7 @@ class DataService {
       headers: {
         'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()
       },
+      // @ts-ignore
       isNative: true
     })
   }

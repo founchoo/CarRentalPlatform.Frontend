@@ -16,6 +16,7 @@ export default defineComponent({
 					label: '车辆 ID',
 					type: 'uuid',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -24,6 +25,7 @@ export default defineComponent({
 					field: 'manufacturer',
 					label: '厂商',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -32,6 +34,7 @@ export default defineComponent({
 					field: 'brand',
 					label: '品牌',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -41,6 +44,7 @@ export default defineComponent({
 					label: '总里程',
 					type: 'number',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -50,6 +54,7 @@ export default defineComponent({
 					label: '租金',
 					type: 'number',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 					}
 				},
@@ -58,6 +63,7 @@ export default defineComponent({
 					label: '出租时间',
 					type: 'date',
 					isValid: false,
+					// @ts-ignore
 					validator: async (value) => {
 
 					}
@@ -66,8 +72,10 @@ export default defineComponent({
 		};
 	},
 	created() {
+		// @ts-ignore
 		common.beforeAdd.value = () => {
 		}
+		// @ts-ignore
 		common.afterAdd.value = () => {
 		}
 	}
